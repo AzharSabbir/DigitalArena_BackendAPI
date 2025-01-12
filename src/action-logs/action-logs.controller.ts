@@ -19,7 +19,8 @@ export class ActionLogsController {
   constructor(private actionLogsService: ActionLogsService) {}
 
   /////////////////////////////// GET All Action Logs ///////////////////////////////
-  @Roles(Role.ADMIN)
+  // @Roles(Role.ADMIN)
+  @Public()
   @Get('getAllActionLogs')
   async getAllActionLogs() {
     return this.actionLogsService.getAllActionLogs();
