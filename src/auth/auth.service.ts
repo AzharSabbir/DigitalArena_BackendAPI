@@ -75,10 +75,13 @@ export class AuthService {
     };
     await this.actionLogsService.createActionLog(actionLog);
 
+    const accessTokenExpiresIn = Date.now() + 1000 * 60 * 60 * 24; // 1 day
+
     return {
       id: userId,
       accessToken,
       refreshToken,
+      accessTokenExpiresIn,
     };
   }
 
@@ -100,10 +103,14 @@ export class AuthService {
 
     const hashedRefreshToken = await argon2.hash(refreshToken);
     await this.userService.updateHashedRefreshToken(userId, hashedRefreshToken);
+
+    const accessTokenExpiresIn = Date.now() + 1000 * 60 * 60 * 24; // 1 day
+
     return {
       id: userId,
       accessToken,
       refreshToken,
+      accessTokenExpiresIn,
     };
   }
 
